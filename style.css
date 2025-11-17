@@ -1,216 +1,338 @@
-/* Styles généraux */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: "Montserrat", serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  background: #f9f9f9;
+  line-height: 1.6;
 }
 
-.title{
-    background-color: white;
-    display: flex;
-    gap: 20px;
-    margin-left: 20px;
-}
+/* ----- NAV ----- */
 
-.container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* En-tête */
+/* 1. Configuration du HEADER (Nav) - Sépare le groupe de gauche du UL de droite */
 header {
-    background-color: white;
-    padding: 20px 0;
-}
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    z-index: 1000;
+  }
 
-header .point {
-    width: 30px;
-    height: 30px;
-    background-color: #84e2e6;
-    border-radius: 50%;
-}
-
-header .container {
+  /* conteneur centré avec espace (empêche wrap global) */
+  .title nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-}
+    justify-content: space-between; /* gauche / droite */
+    width: 94%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 0;
+    gap: 8px;
+    white-space: nowrap; /* Important : empêche le wrap dans le nav */
+  }
 
-header .profile h1 {
-    font-size: 18px;
-    margin: 0;
-}
-
-header .profile p {
-    font-size: 15px;
-    margin: 0;
-    color: #78797a;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* ---- bloc de gauche (image + point + nom) ---- */
+  .left-section {
     display: flex;
-}
+    align-items: center;
+    gap: 5px;            /* petit espace par défaut entre les éléments */
+    flex-shrink: 0;       /* empêche le bloc de se réduire trop et forcer un wrap */
+    white-space: nowrap;  /* empêche retour à la ligne à l'intérieur */
+  }
 
-nav li {
+  .profile-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .point {
+    width: 14px;
+    height: 14px;
+    background-color: #138000; /* vert */
+    border-radius: 50%;
+    margin-left: 20px; /* espace demandé entre image et point */
+    margin-right: 10px; /* espace entre point et h1 */
+    flex-shrink: 0;
+  }
+
+  /* Nom : éviter marge et empêcher qu'il pousse en wrap */
+  .left-section h1 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    font-family: "Dancing Script", cursive;
+    font-size: 2.5rem;
+    color: #007bff;
+  }
+
+  /* ---- menu à droite ---- */
+  nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 28px;
     margin-left: 20px;
-}
+    margin-right: 0;
+    padding: 0;
+    flex-shrink: 0;      /* empêche le ul de se réduire et de provoquer un wrap */
+    white-space: nowrap;
+  }
 
-nav a {
+  nav ul li a{
     text-decoration: none;
     color: #333;
-    font-weight: bold;
+    font-weight: 500;
+  }
+
+  nav ul li a:hover { color: #007bff; }
+
+  /* Si l’écran devient trop petit, on réduit légèrement le texte pour éviter le wrap */
+  @media (max-width: 800px) {
+    .left-section h1 { font-size: 1rem; }
+    nav ul { gap: 16px; }
+    .title nav { width: 96%; }
+  }
+
+  /* Pour écrans très petits : on masque le texte du h1 si absolument nécessaire (optionnel) */
+  @media (max-width: 420px) {
+    .left-section h1 { display: none; } /* remplace par un menu burger si besoin */
+  }
+
+  /* pour que le reste du contenu ne soit pas caché sous le header fixe */
+  main { padding-top: 80px; } 
+
+  
+
+/* Style du conteneur principal SECTION */
+main  {
+  margin-top: 20px;
+  background-image: url(background.jpg);
+  background-size: cover;
+  height: 650px;
 }
 
-nav a:hover {
-    color: #007bff;
+main p {
+  font-size: 1rem;
+  color: #fffafa;
+  font-family: "Montserrat", sans-serif;
 }
 
-/* Section de profil */
-.profile-section {
-    padding: 40px 0;
-}
-
-.profile-section .container {
-    display: flex;
-    align-items: flex-start; /* Aligner le contenu en haut */
-}
-
-.profile-image {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    object-fit: scale-down;
-    border: 4px solid #d3d6d8;
-    margin-right: 40px;
-    background-color: rgb(129, 127, 127);
-}
-
-.profile-text {
-    flex: 1; /* Le texte occupe l'espace restant */
-}
-
-.profile-text h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: rgb(55, 54, 54);
-}
-
-.profile-text p {
-    font-size: 1.2em;
-    line-height: 1.5; /* Améliorer la lisibilité */
-    color: #6d6b6b;
-}
-
-.buttons {
-    gap: 25px;
-    background-color: #8bda8e;
-    border-radius: 5%;
-    margin-top: 50px;
-}
-
-.btn {
-    text-decoration: none;
-    padding: 12px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    color: white;
-    transition: 0.3s;
-}
-
-.about { background: #4caf50; }
-.services { background: #d3a119; }
-.contact { background: #03a9f4; }
-
-.btn:hover {
-    opacity: 0.5;
-}
-
-hr{
-    height: 2px;
-    border: none;
-    background-color: rgb(235, 233, 233);
-    margin: 2PX;
-}
-
-
-
-.contact-section{
-    background-color: #f5f5f2;
-    padding-bottom: 10px;
-}
-
-.footer{
-    margin-top: 20px;
-    display: flex;
-    gap: 5em;
-    display: inline-flex;
-    color: #5c5c59;
-    line-height: 1px;
-}
-
-.contact-section{
+main h3 {
+  color: #007bff;
+  font-weight: 700;
+  margin-bottom: 10px;
 text-align: center;
 }
 
-h3{
-    margin: 0;
-    color: rgb(15, 117, 148);
-    font-size: 18px;
+/* ----- HERO ----- */
+.hero {
+  display: flex;
+  justify-content: space-between; /* espace régulier entre les div */
+  align-items: flex-start;
+  background-color: rgba(0, 0, 255, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin: 40px auto;
+  max-width: 1200px;
+  flex-wrap: nowrap; /* force l'affichage sur une seule ligne */
+  overflow-x: auto; /* scroll horizontal si l’écran est trop petit */
 }
 
-.copyright{
-    color: #78797a;
-    font-size: 12px;
+.hero > div {
+  flex: 1;
+  background-color: rgba(4, 60, 97, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 0 10px;
+  width: 100px;
+  height: 250px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  min-width: 200px; /* garde une largeur minimale pour chaque bloc */
 }
 
-.email{
-    text-align: left;
+.hero > p {
+  flex-basis: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #3d0202;
 }
 
-.email h5{
-    font-weight: 800;
-    font-size: 15px;
+/* Style des titres */
+.hero h2 {
+  color: #065c96;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
-.email p{
-    font-size: 13px;
-    color: #78797a;
+/* Style des paragraphes */
+.hero p {
+  text-align: left;
+  color: #fffefe;
+  line-height: 1.4;
+  font-size: 0.95rem;
 }
 
-.facebook{
-    text-align: left;
+/* removed empty rule */
+/*
+
+header {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.facebook p{
-    font-size: 13px;
-    color: #78797a;
+.profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #007bff;
 }
 
-.facebook h5
-{
-    font-weight: 800;
-    font-size: 15px;
+nav {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
 }
 
-.github{
-    text-align: left;
+nav ul {
+  display: flex;
+  gap: 2rem;
 }
 
-.github p{
-    font-size: 13px;
-    color: #78797a;
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
 }
 
-.github h5
-{
-    font-weight: 800;
-    font-size: 15px;
+nav a:hover {
+  color: #007BFF;
 }
 
-.copyright{
-    text-align: left;
+/* ----- HERO ----- */
+
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+ /* background: linear-gradient(to right, #007BFF, #00BFFF);*/
+
+}
+
+.hero .btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  /*background: white;*/
+  color: #007BFF;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ----- ABOUT ----- */
+.about {
+  max-width: 900px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 0 20px;
+}
+
+/* ----- PROJECTS ----- */
+.projects {
+  background: #fff;
+  padding: 60px 20px;
+}
+
+.projects h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.project {
+  background: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.project img {
+  width: 100%;
+  height: auto;
+}
+
+.project h3 {
+  margin: 10px 0;
+}
+
+/* ----- CONTACT ----- */
+.contact {
+  padding: 60px 20px;
+  text-align: center;
+  background: #007BFF;
+  color: white;
+}
+
+.contact form {
+  max-width: 500px;
+  margin: 30px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact input, .contact textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.contact .btn {
+  background: white;
+  color: #007BFF;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ----- FOOTER ----- */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: white;
+  font-size: 0.9rem;
 }
